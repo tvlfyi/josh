@@ -467,7 +467,8 @@ async fn call_service(
         headref = "HEAD".to_string();
     }
 
-    if !josh_proxy::auth::check_auth(&remote_url, &auth, ARGS.is_present("require-auth"))
+    if !josh_proxy::auth::check_auth(&remote_url, &parsed_url.pathinfo, &auth, ARGS.is_present("require-auth"))
+
         .in_current_span()
         .await?
     {

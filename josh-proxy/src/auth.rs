@@ -54,8 +54,8 @@ impl Handle {
     }
 }
 
-pub async fn check_auth(url: &str, auth: &Handle, required: bool) -> josh::JoshResult<bool> {
-    if required && auth.hash.is_empty() {
+pub async fn check_auth(url: &str, pathinfo: &str, auth: &Handle, required: bool) -> josh::JoshResult<bool> {
+    if auth.hash.is_empty() && (required || pathinfo == "/git-receive-pack") {
         return Ok(false);
     }
 
